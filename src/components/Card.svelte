@@ -1,31 +1,158 @@
 <script>
   import Comments from "./Comments.svelte";
-  const fetchData = async () => {
-    const response = await fetch("https://api.disneyapi.dev/characters");
-    const data = await response.json();
-    console.log("fetchData -> data", data);
-    return data;
-  };
-  fetchData();
+  export let imageUrl;
+  export let name;
+  export let species;
+  export let gender;
+  export let relatives;
+  export let id;
+  export let createdBy;
+  let image =
+    "https://cdn.shopify.com/s/files/1/2128/8197/products/2018-Disney-Princess-group-disney-princess-41419364-3347-2438_600x600.jpg?v=1569045362";
 </script>
+
+<style>
+  .Card {
+    border: 1px solid rgba(219, 219, 219, 1);
+    border-radius: 4px;
+    background-color: white;
+    margin: 0 0 2em 0;
+    width: 85%;
+    margin: 0 auto;
+  }
+
+  .Card-Header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+  }
+  .Card-user {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+  .Card-user img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+  }
+  .Card-user h2 {
+    margin: 0;
+    padding: 0;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 0 1em;
+    color: black;
+  }
+  .Card-user h2 span {
+    display: block;
+    font-size: 12px;
+    font-weight: normal;
+    color: rgba(38, 38, 38, 0.7);
+  }
+  .Card-photo {
+    padding: 0;
+    margin: 0;
+  }
+  .Card-photo img {
+    width: 100%;
+    height: 400px;
+  }
+  .Card-photo figure {
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  .Card-settings i {
+    cursor: pointer;
+  }
+  .Card-icons {
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .Card-icons i {
+    margin: 0 1em 0 0;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  .Card-icons i:last-child {
+    margin: 0;
+  }
+  .Card-description {
+    padding: 0 1em 1em 1em;
+  }
+  .Card-description h3 {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+  }
+  .Card-description span {
+    font-size: 14px;
+  }
+  .active-like {
+    color: #bc1888;
+    animation: bounce linear 0.8s;
+    animation-iteration-count: 1;
+    transform-origin: 20% 20%;
+  }
+  .active-bookmark {
+    color: #f09433;
+  }
+
+  @keyframes bounce {
+    0% {
+      transform: translate(0px, 0px);
+    }
+    15% {
+      transform: translate(0px, -25px);
+    }
+    30% {
+      transform: translate(0px, 0px);
+    }
+    45% {
+      transform: translate(0px, -15px);
+    }
+    60% {
+      transform: translate(0px, 0px);
+    }
+    75% {
+      transform: translate(0px, -5px);
+    }
+    100% {
+      transform: translate(0px, 0px);
+    }
+  }
+</style>
 
 <div class="Card">
   <div class="Card-container">
-    <header class="Card-header">
-      <img
-        src="https://avatars1.githubusercontent.com/u/22552150?s=400&u=f3e75b716d7411b061ff268f66dbb0f4b37a7bb4&v=4"
-        alt="avatar-user" />
-      <h2>
-        Princess.disney
-        <span>Bogotá, Colombia</span>
-      </h2>
+    <header class="Card-Header">
+      <div class="Card-user">
+        {#if id === 20 || id === 28}
+          <img src={image} alt="avatar user" />
+        {:else}
+          <img src={imageUrl} alt="avatar user" />
+        {/if}
+        <h2>
+          {name}
+          <span>Bogotá, Colombia</span>
+        </h2>
+      </div>
       <div class="Card-settings">
         <i class="fas fa-ellipsis-h" />
       </div>
     </header>
     <div class="Card-photo">
       <figure>
-        <img src="" alt="img disney" />
+        {#if id === 20 || id === 28}
+          <img src={image} alt="img disney" />
+        {:else}
+          <img src={imageUrl} alt="img disney" />
+        {/if}
+
       </figure>
     </div>
     <div class="Card-icons">
@@ -37,6 +164,12 @@
         <i class="fas fa-bookmark" />
       </div>
     </div>
-    <Comments />
+
+    <div class="Card-description">
+      <h3>{name}</h3>
+      <span>{species}</span>
+    </div>
+    <Comments username={createdBy} text={relatives} {name} />
+
   </div>
 </div>

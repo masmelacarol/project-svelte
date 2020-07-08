@@ -1,9 +1,21 @@
 <script>
   import Card from "./Card.svelte";
+  export let images = [];
 </script>
 
-<section class="Timeline">
+<style>
+  .TimeLine {
+    padding: 4em 0 0 0;
+  }
+</style>
+
+<section class="TimeLine">
   <div class="Timeline-container">
-    <Card />
+    {#each images as image, id}
+      <Card {...image} {id} />
+    {:else}
+      <p>Loading...</p>
+    {/each}
+
   </div>
 </section>
