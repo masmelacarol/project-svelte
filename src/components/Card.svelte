@@ -2,9 +2,8 @@
   import Comments from "./Comments.svelte";
   import Modal from "./Modal.svelte";
   import Share from "./Share.svelte";
-
   import { blur } from "svelte/transition";
-
+  import { likeCount } from "../store/store.js";
   export let imageUrl;
   export let name;
   export let species;
@@ -15,8 +14,19 @@
     "https://cdn.shopify.com/s/files/1/2128/8197/products/2018-Disney-Princess-group-disney-princess-41419364-3347-2438_600x600.jpg?v=1569045362";
 
   let isModal = false;
+  let like = false;
+  let bookmark = false;
   const handleClick = () => {
     isModal = !isModal;
+  };
+
+  const handleLike = () => {
+    like = !like;
+    if (like) {
+      likeCount.update(n => n + 1);
+    } else {
+      likeCount.update(n => n - 1);
+    }
   };
 </script>
 
@@ -101,7 +111,7 @@
   .Card-description span {
     font-size: 14px;
   }
-  /* .active-like {
+  .active-like {
     color: #bc1888;
     animation: bounce linear 0.8s;
     animation-iteration-count: 1;
@@ -109,7 +119,7 @@
   }
   .active-bookmark {
     color: #f09433;
-  } */
+  }
 
   @keyframes bounce {
     0% {
@@ -165,7 +175,7 @@
       </div>
     </header>
     <div class="Card-photo">
-      <figure>
+      <figure on:dblclick={handleLike}>
         {#if id === 20 || id === 28}
           <img src={image} alt="img disney" />
         {:else}
@@ -176,11 +186,17 @@
     </div>
     <div class="Card-icons">
       <div class="Card-icons-first">
-        <i class="fas fa-heart" />
+        <i
+          class="fas fa-heart"
+          class:active-like={like}
+          on:click={handleLike} />
         <i class="fas fa-paper-plane" on:click={handleClick} />
       </div>
       <div class="Card-icons-second">
-        <i class="fas fa-bookmark" />
+        <i
+          class="fas fa-bookmark"
+          class:active-bookmark={bookmark}
+          on:click={() => (bookmark = !bookmark)} />
       </div>
     </div>
 
