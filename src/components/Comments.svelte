@@ -1,8 +1,28 @@
 <script>
   import { afterUpdate } from "svelte";
   export let username = [];
-  export let name = [];
   export let text;
+  let comments = [
+    {
+      id: Date.now(),
+      user: username,
+      text: text
+    }
+  ];
+  let comment = "";
+
+  const addComment = e => {
+    const msg = e.target.text.value;
+    if (msg.length > 3) {
+      const message = {
+        id: Date.now(),
+        user: "masmelacarol",
+        text: msg
+      };
+      comments = [...comments, message];
+      e.target.text.value = "";
+    }
+  };
 </script>
 
 <style>
@@ -54,33 +74,27 @@
     outline: none;
     cursor: pointer;
   }
-  label {
-    display: none;
-  }
 </style>
 
 <section class="Comments">
   <div class="Comments-content">
     <div class="Comments-users">
-      {#each username as user}
-        {#if user}
-          <h3>{user}</h3>
-          <span>{text}</span>
-        {:else}
-          <h3>{name}</h3>
-          <span>{text}</span>
+      {#each comments as comment}
+        {#if comment.user}
+          <h3>{comment.user}</h3>
+          <span>{comment.text}</span>
         {/if}
       {/each}
     </div>
 
     <div class="Comments-add">
-      <form>
-        <label />
+      <form on:submit|preventDefault={addComment}>
         <input
+          id="text"
           type="text"
           placeholder="Agregar comentario..."
           class="Comments-input"
-          id="text" />
+          bind:value={comment} />
         <button type="submit">Post</button>
       </form>
     </div>
