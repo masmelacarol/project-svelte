@@ -1,5 +1,6 @@
 <script>
   import { likeCount } from "../store/store";
+  import logo from "../assets/images/favicon.png";
 </script>
 
 <style>
@@ -45,6 +46,7 @@
     background: #fff;
     mix-blend-mode: multiply;
     display: inline-block;
+    vertical-align: middle;
   }
 
   h1:before {
@@ -58,18 +60,27 @@
     top: 0;
     left: 0;
   }
+  .Header-logo img {
+    width: 100px;
+    vertical-align: middle;
+  }
+
+  .active-like {
+    color: #bc1888 !important;
+  }
 </style>
 
 <header class="Header">
   <div class="Header-container">
     <div class="Header-content">
       <div class="Header-logo">
+        <img src={logo} alt="logo disney" />
         <h1>Disneytagram</h1>
       </div>
       <nav class="Header-nav">
         <ul>
           <li>
-            <i class="fas fa-heart" />
+            <i class="fas fa-heart" class:active-like={$likeCount > 0} />
             {$likeCount === 0 ? '' : $likeCount}
           </li>
           <li>
