@@ -1,3 +1,9 @@
+<script>
+  import Card from "./Card.svelte";
+</script>
+
 <section class="Timeline">
-  <p>Timeline</p>
+  <div class="Timeline-container">
+    <Card />
+  </div>
 </section>
