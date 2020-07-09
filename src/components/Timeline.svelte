@@ -1,7 +1,6 @@
 <script>
   import Card from "./Card.svelte";
   export let images = [];
-  console.log("images hola", images);
 </script>
 
 <style>

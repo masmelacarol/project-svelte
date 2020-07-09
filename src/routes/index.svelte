@@ -1,18 +1,23 @@
+<script context="module">
+  export async function preload() {
+    let images = [];
+    const response = await this.fetch("https://api.disneyapi.dev/characters");
+    images = await response.json();
+    return { images };
+  }
+</script>
+
 <script>
-  import { onMount } from "svelte";
   import Header from "../components/Header.svelte";
   import Main from "../components/Main.svelte";
   import Timeline from "../components/Timeline.svelte";
   import Sidebar from "../components/Sidebar.svelte";
-
-  let images = [];
-  const API = "https://api.disneyapi.dev/characters";
-  onMount(async () => {
-    const response = await fetch(API);
-    images = await response.json();
-    console.log("images", images);
-  });
+  export let images;
 </script>
+
+<svelte:head>
+  <title>Disneytagram</title>
+</svelte:head>
 
 <Main>
   <Timeline {images} />
