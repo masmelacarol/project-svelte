@@ -1,6 +1,6 @@
 <script>
   import { likeCount } from "../store/store";
-  import logo from "../assets/images/favicon.png";
+  export let segment;
 </script>
 
 <style>
@@ -60,13 +60,13 @@
     top: 0;
     left: 0;
   }
-  .Header-logo img {
-    width: 100px;
-    vertical-align: middle;
-  }
 
   .active-like {
     color: #bc1888 !important;
+  }
+
+  [aria-current] i {
+    color: #bc1888;
   }
 </style>
 
@@ -74,7 +74,6 @@
   <div class="Header-container">
     <div class="Header-content">
       <div class="Header-logo">
-        <img src={logo} alt="logo disney" />
         <h1>Disneytagram</h1>
       </div>
       <nav class="Header-nav">
@@ -84,7 +83,11 @@
             {$likeCount === 0 ? '' : $likeCount}
           </li>
           <li>
-            <i class="fas fa-user-alt" />
+            <a
+              aria-current={segment === 'profile' ? 'page' : undefined}
+              href="profile">
+              <i class="fas fa-user-alt" />
+            </a>
           </li>
         </ul>
       </nav>

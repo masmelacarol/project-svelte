@@ -2,8 +2,6 @@ const webpack = require('webpack');
 const path = require('path');
 const config = require('sapper/config/webpack.js');
 const pkg = require('./package.json');
-const { server } = require('sapper/config/webpack.js');
-const { resolve } = require('path');
 
 const mode = process.env.NODE_ENV;
 const dev = mode === 'development';
@@ -26,7 +24,7 @@ module.exports = {
             options: {
               dev,
               hydratable: true,
-              hotReload: false,
+              hotReload: false
             }
           }
         }
@@ -47,7 +45,7 @@ module.exports = {
     output: config.server.output(),
     target: 'node',
     resolve: { alias, extensions, mainFields },
-    externals: Object.keys(pkd.dependencies).concat('enconding'),
+    externals: Object.keys(pkg.dependencies).concat('encoding'),
     module: {
       rules: [
         {
@@ -67,6 +65,5 @@ module.exports = {
     performance: {
       hints: false
     }
-  }
+  },
 };
-

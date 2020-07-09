@@ -63,3 +63,8 @@ typings/
 dist
 
 .vscode/
+
+#sapper
+
+src/node_modules
+__sapper__
