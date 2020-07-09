@@ -15,7 +15,7 @@
     width: 100%;
   }
   .Header-container {
-    grid-template-columns: minmax(auto, 936px);
+    grid-template-columns: minmax(auto, 935px);
     display: grid;
     justify-content: center;
     background-color: white;
